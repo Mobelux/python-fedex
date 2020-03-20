@@ -1,12 +1,13 @@
 """
 Ship Service Module
 
-This package contains the shipping methods defined by Fedex's 
-ShipService WSDL file. Each is encapsulated in a class for easy access. 
+This package contains the shipping methods defined by Fedex's
+ShipService WSDL file. Each is encapsulated in a class for easy access.
 For more details on each, refer to the respective class's documentation.
 """
 
 import datetime
+
 from ..base_service import FedexBaseService
 
 
@@ -20,18 +21,18 @@ class FedexProcessShipmentRequest(FedexBaseService):
 
     def __init__(self, config_obj, *args, **kwargs):
         """
-        The optional keyword args detailed on L{FedexBaseService} 
+        The optional keyword args detailed on L{FedexBaseService}
         apply here as well.
 
         @type config_obj: L{FedexConfig}
-        @param config_obj: A valid FedexConfig object.        
+        @param config_obj: A valid FedexConfig object.
         """
 
         self._config_obj = config_obj
         # Holds version info for the VersionId SOAP object.
         self._version_info = {
             'service_id': 'ship',
-            'major': '23',
+            'major': '25',
             'intermediate': '0',
             'minor': '0'
         }
@@ -39,7 +40,7 @@ class FedexProcessShipmentRequest(FedexBaseService):
         """@ivar: Holds the RequestedShipment WSDL object."""
         # Call the parent FedexBaseService class for basic setup work.
         super(FedexProcessShipmentRequest, self).__init__(
-                self._config_obj, 'ShipService_v23.wsdl', *args, **kwargs)
+                self._config_obj, 'ShipService_v25.wsdl', *args, **kwargs)
 
     def _prepare_wsdl_objects(self):
         """
@@ -116,9 +117,9 @@ class FedexProcessShipmentRequest(FedexBaseService):
     def _assemble_and_send_validation_request(self):
         """
         Fires off the Fedex shipment validation request.
-        
-        @warning: NEVER CALL THIS METHOD DIRECTLY. CALL 
-            send_validation_request(), WHICH RESIDES ON FedexBaseService 
+
+        @warning: NEVER CALL THIS METHOD DIRECTLY. CALL
+            send_validation_request(), WHICH RESIDES ON FedexBaseService
             AND IS INHERITED.
         """
 
@@ -133,8 +134,8 @@ class FedexProcessShipmentRequest(FedexBaseService):
     def _assemble_and_send_request(self):
         """
         Fires off the Fedex request.
-        
-        @warning: NEVER CALL THIS METHOD DIRECTLY. CALL send_request(), 
+
+        @warning: NEVER CALL THIS METHOD DIRECTLY. CALL send_request(),
             WHICH RESIDES ON FedexBaseService AND IS INHERITED.
         """
 
@@ -149,8 +150,8 @@ class FedexProcessShipmentRequest(FedexBaseService):
     def add_package(self, package_item):
         """
         Adds a package to the ship request.
-        
-        @type package_item: WSDL object, type of RequestedPackageLineItem 
+
+        @type package_item: WSDL object, type of RequestedPackageLineItem
             WSDL object.
         @keyword package_item: A RequestedPackageLineItem, created by
             calling create_wsdl_object_of_type('RequestedPackageLineItem') on
@@ -177,7 +178,7 @@ class FedexDeleteShipmentRequest(FedexBaseService):
         self._config_obj = config_obj
 
         # Holds version info for the VersionId SOAP object.
-        self._version_info = {'service_id': 'ship', 'major': '23',
+        self._version_info = {'service_id': 'ship', 'major': '25',
                               'intermediate': '0', 'minor': '0'}
         self.DeletionControlType = None
         """@ivar: Holds the DeletrionControlType WSDL object."""
@@ -185,7 +186,7 @@ class FedexDeleteShipmentRequest(FedexBaseService):
         """@ivar: Holds the TrackingId WSDL object."""
         # Call the parent FedexBaseService class for basic setup work.
         super(FedexDeleteShipmentRequest, self).__init__(self._config_obj,
-                                                         'ShipService_v23.wsdl',
+                                                         'ShipService_v25.wsdl',
                                                          *args, **kwargs)
 
     def _prepare_wsdl_objects(self):
@@ -200,7 +201,7 @@ class FedexDeleteShipmentRequest(FedexBaseService):
     def _assemble_and_send_request(self):
         """
         Fires off the Fedex request.
-        
+
         @warning: NEVER CALL THIS METHOD DIRECTLY. CALL send_request(), WHICH RESIDES
             ON FedexBaseService AND IS INHERITED.
         """
